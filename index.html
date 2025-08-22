@@ -1,279 +1,430 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fear Executor</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #0a0a0a;
-      color: #f5f5f5;
-      overflow-x: hidden;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fear Executor - Pro Landing Page</title>
+<style>
+/* ===== GLOBAL STYLES ===== */
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Segoe UI', sans-serif; background:#0a0a0a; color:#f5f5f5; scroll-behavior:smooth; overflow-x:hidden; }
 
-    /* Navbar */
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 50px;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(10px);
-      z-index: 1000;
-    }
-    nav ul {
-      display: flex;
-      gap: 30px;
-      list-style: none;
-    }
-    nav ul li a {
-      text-decoration: none;
-      color: #fff;
-      font-weight: 600;
-      position: relative;
-      transition: color 0.3s;
-    }
-    nav ul li a::after {
-      content: "";
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: -5px;
-      left: 0;
-      background: #ff004f;
-      transition: width 0.3s;
-    }
-    nav ul li a:hover::after {
-      width: 100%;
-    }
-    nav ul li a:hover {
-      color: #ff004f;
-    }
+/* ===== NAVBAR ===== */
+nav { position:fixed; top:0; width:100%; display:flex; justify-content:space-between; align-items:center; padding:20px 50px; background:rgba(0,0,0,0.85); backdrop-filter:blur(10px); z-index:1000; border-bottom:1px solid #222;}
+nav h2 { color:#ff004f; font-weight:bold; letter-spacing:2px;}
+nav ul { display:flex; gap:30px; list-style:none;}
+nav ul li a { text-decoration:none; color:#fff; font-weight:600; position:relative; transition:color 0.3s;}
+nav ul li a::after { content:""; position:absolute; width:0; height:2px; bottom:-5px; left:0; background:#ff004f; transition:width 0.3s;}
+nav ul li a:hover::after { width:100%;}
+nav ul li a:hover { color:#ff004f;}
 
-    /* Hero */
-    .hero {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background: url('https://i.imgur.com/c9ptYlK.png') center/cover no-repeat fixed;
-      text-align: center;
-      position: relative;
-    }
-    .hero::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-    }
-    .hero h1 {
-      font-size: 4rem;
-      color: #fff;
-      z-index: 1;
-      animation: fadeInDown 2s ease;
-    }
-    .hero p {
-      font-size: 1.3rem;
-      margin-top: 20px;
-      color: #ccc;
-      z-index: 1;
-      animation: fadeInUp 2s ease;
-    }
-    .btn-primary {
-      margin-top: 30px;
-      padding: 12px 25px;
-      background: linear-gradient(45deg, #ff004f, #ff7300);
-      border: none;
-      border-radius: 8px;
-      color: #fff;
-      font-size: 1rem;
-      cursor: pointer;
-      z-index: 1;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .btn-primary:hover {
-      transform: translateY(-5px);
-      box-shadow: 0px 10px 20px rgba(255, 0, 79, 0.5);
-    }
+/* ===== HERO ===== */
+.hero { height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:url('https://i.imgur.com/c9ptYlK.png') center/cover no-repeat fixed; position:relative; text-align:center;}
+.hero::before { content:""; position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.65);}
+.hero h1 { font-size:3rem; color:#fff; z-index:1; margin-bottom:15px; animation: fadeInDown 1.5s ease;}
+.hero p { font-size:1.3rem; color:#ccc; z-index:1; margin-bottom:25px; animation: fadeInUp 1.5s ease;}
+.btn-primary { padding:14px 30px; background:linear-gradient(45deg,#ff004f,#ff7300); border:none; border-radius:10px; color:#fff; font-weight:bold; cursor:pointer; z-index:1; transition:transform 0.3s, box-shadow 0.3s;}
+.btn-primary:hover { transform:translateY(-5px); box-shadow:0px 10px 25px rgba(255,0,79,0.5); }
 
-    /* Features */
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-      padding: 100px 50px;
-      background: #111;
-    }
-    .feature-card {
-      background: rgba(255,255,255,0.05);
-      border-radius: 12px;
-      padding: 30px;
-      text-align: center;
-      transition: transform 0.3s;
-    }
-    .feature-card:hover {
-      transform: translateY(-10px);
-      background: rgba(255,255,255,0.1);
-    }
+/* ===== OVERLAPPING PREVIEW IMAGES ===== */
+.preview-images { display:flex; justify-content:center; align-items:center; margin-top:35px; position:relative; z-index:1;}
+.preview-images img { width:180px; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,0.6); margin:0 -40px; transition: transform 0.3s;}
+.preview-images img:hover { transform:scale(1.15); z-index:10; }
 
-    /* Gallery */
-    .gallery {
-      padding: 100px 50px;
-      background: #0f0f0f;
-      text-align: center;
-    }
-    .gallery h2 {
-      margin-bottom: 40px;
-      font-size: 2.5rem;
-    }
-    .carousel {
-      display: flex;
-      overflow: hidden;
-      position: relative;
-    }
-    .carousel img {
-      min-width: 100%;
-      transition: transform 0.5s ease;
-    }
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInDown { from { opacity:0; transform:translateY(-50px); } to { opacity:1; transform:translateY(0);} }
+@keyframes fadeInUp { from { opacity:0; transform:translateY(50px); } to { opacity:1; transform:translateY(0);} }
 
-    /* Testimonials */
-    .testimonials {
-      padding: 100px 50px;
-      background: url('https://i.imgur.com/c9ptYlK.png') center/cover no-repeat fixed;
-      position: relative;
-      text-align: center;
-    }
-    .testimonials::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.7);
-    }
-    .testimonials h2, .testimonials p {
-      position: relative;
-      z-index: 1;
-    }
-    .testimonial-card {
-      background: rgba(255,255,255,0.1);
-      margin: 20px auto;
-      padding: 20px;
-      max-width: 500px;
-      border-radius: 12px;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Footer */
-    footer {
-      padding: 50px;
-      text-align: center;
-      background: url('https://i.imgur.com/c9ptYlK.png') center/cover;
-      position: relative;
-    }
-    footer::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.8);
-    }
-    footer p {
-      position: relative;
-      z-index: 1;
-      color: #ccc;
-    }
-
-    /* Animations */
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-50px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(50px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){ .preview-images{flex-direction:column;margin-top:25px;} .preview-images img{margin:10px 0;} nav ul{flex-direction:column;gap:15px;} }
+</style>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav>
-    <h2>Fear Executor</h2>
-    <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#features">Features</a></li>
-      <li><a href="#gallery">Gallery</a></li>
-      <li><a href="#pricing">Pricing</a></li>
-      <li><a href="#faq">FAQ</a></li>
-      <li><a href="#support">Support</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
 
-  <!-- Hero -->
-  <section class="hero" id="home">
-    <h1>Fear Executor</h1>
-    <p>Professional tools for the ultimate experience.</p>
-    <button class="btn-primary">Get Started</button>
-  </section>
+<!-- NAVBAR -->
+<nav>
+  <h2>Fear Executor</h2>
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-  <!-- Features -->
-  <section class="features" id="features">
-    <div class="feature-card">
-      <h3>Lightning Fast</h3>
-      <p>Optimized for maximum performance and speed.</p>
-    </div>
-    <div class="feature-card">
-      <h3>Secure</h3>
-      <p>Built with security and stability in mind.</p>
-    </div>
-    <div class="feature-card">
-      <h3>User Friendly</h3>
-      <p>Simple design with pro-level features.</p>
-    </div>
-  </section>
+<!-- HERO -->
+<section class="hero" id="home">
+  <h1>Fear Executor</h1>
+  <p>Professional tools for the ultimate experience.</p>
+  <button class="btn-primary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Get Started</button>
 
-  <!-- Gallery -->
-  <section class="gallery" id="gallery">
-    <h2>Preview Gallery</h2>
-    <div class="carousel">
-      <img src="https://i.imgur.com/c9ptYlK.png" alt="Preview 1">
-      <img src="https://i.imgur.com/c9ptYlK.png" alt="Preview 2">
-      <img src="https://i.imgur.com/c9ptYlK.png" alt="Preview 3">
-    </div>
-  </section>
+  <div class="preview-images">
+    <img src="https://i.imgur.com/c9ptYlK.png" alt="Preview Left">
+    <img src="https://i.imgur.com/c9ptYlK.png" alt="Preview Center">
+    <img src="https://i.imgur.com/c9ptYlK.png" alt="Preview Right">
+  </div>
+</section>
+<!-- FEATURES SECTION -->
+<section id="features" class="features">
+  <div class="feature-card">
+    <h3>Lightning Fast</h3>
+    <p>Optimized for maximum performance and speed.</p>
+  </div>
+  <div class="feature-card">
+    <h3>Secure</h3>
+    <p>Built with security and stability in mind.</p>
+  </div>
+  <div class="feature-card">
+    <h3>User Friendly</h3>
+    <p>Simple design with pro-level features for everyone.</p>
+  </div>
+  <div class="feature-card">
+    <h3>Customizable</h3>
+    <p>Adjust settings and tools to fit your workflow.</p>
+  </div>
+  <div class="feature-card">
+    <h3>Real-time Updates</h3>
+    <p>Stay ahead with constant improvements and new tools.</p>
+  </div>
+</section>
 
-  <!-- Testimonials -->
-  <section class="testimonials">
-    <h2>What People Say</h2>
-    <div class="testimonial-card">
-      <p>“Fear Executor took my experience to the next level. Highly recommend!”</p>
-    </div>
-    <div class="testimonial-card">
-      <p>“Professional and reliable—exactly what I was looking for.”</p>
-    </div>
-  </section>
+<!-- GALLERY SECTION -->
+<section id="gallery" class="gallery">
+  <img src="https://i.imgur.com/c9ptYlK.png" alt="Gallery 1">
+  <img src="https://i.imgur.com/c9ptYlK.png" alt="Gallery 2">
+  <img src="https://i.imgur.com/c9ptYlK.png" alt="Gallery 3">
+  <img src="https://i.imgur.com/c9ptYlK.png" alt="Gallery 4">
+  <img src="https://i.imgur.com/c9ptYlK.png" alt="Gallery 5">
+  <img src="https://i.imgur.com/c9ptYlK.png" alt="Gallery 6">
+</section>
 
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 Fear Executor. All rights reserved.</p>
-  </footer>
-</body>
-</html>
+<!-- FAQ SECTION -->
+<section id="faq" class="faq">
+  <div class="faq-item">
+    <h3 onclick="toggleFAQ(this)">Is it easy to install?</h3>
+    <p>Yes! Step-by-step guides are included for smooth setup.</p>
+  </div>
+  <div class="faq-item">
+    <h3 onclick="toggleFAQ(this)">Do you offer support?</h3>
+    <p>Yes, 24/7 support is available to all users.</p>
+  </div>
+  <div class="faq-item">
+    <h3 onclick="toggleFAQ(this)">Can I customize the tools?</h3>
+    <p>Absolutely! Settings are flexible for pro users.</p>
+  </div>
+  <div class="faq-item">
+    <h3 onclick="toggleFAQ(this)">Is it secure?</h3>
+    <p>We prioritize security with continuous updates and checks.</p>
+  </div>
+</section>
+
+<script>
+// FAQ Toggle Function
+function toggleFAQ(element){
+  element.parentElement.classList.toggle('active');
+}
+</script>
+<!-- PRICING SECTION -->
+<section id="pricing" class="features">
+  <h2 style="color:#ff004f; text-align:center; margin-bottom:40px;">Pricing</h2>
+  <div class="feature-card">
+    <h3>1 Day Promo</h3>
+    <p>$2 - Quick access for a day</p>
+    <button class="btn-primary">Buy Now</button>
+  </div>
+  <div class="feature-card">
+    <h3>Lifetime Promo</h3>
+    <p>$12 - Full access forever</p>
+    <button class="btn-primary">Buy Now</button>
+  </div>
+</section>
+
+<!-- TESTIMONIALS SECTION -->
+<section id="testimonials" class="gallery">
+  <div class="feature-card">
+    <p>“Fear Executor improved my workflow tremendously. Highly recommended!”</p>
+  </div>
+  <div class="feature-card">
+    <p>“Super smooth interface and reliable tools. Pro-level experience!”</p>
+  </div>
+  <div class="feature-card">
+    <p>“Easy to use, fast, and secure. Worth every penny!”</p>
+  </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section id="contact" class="faq">
+  <h2 style="color:#ff004f; text-align:center; margin-bottom:30px;">Contact Us</h2>
+  <form style="max-width:600px; margin:0 auto; display:flex; flex-direction:column; gap:15px;">
+    <input type="text" placeholder="Your Name" style="padding:12px; border-radius:8px; border:none;">
+    <input type="email" placeholder="Your Email" style="padding:12px; border-radius:8px; border:none;">
+    <textarea placeholder="Your Message" rows="5" style="padding:12px; border-radius:8px; border:none;"></textarea>
+    <button type="submit" class="btn-primary">Send Message</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Fear Executor. All rights reserved.</p>
+  <p>
+    <a href="#">Twitter</a> |
+    <a href="#">Discord</a> |
+    <a href="#">YouTube</a>
+  </p>
+</footer>
+<script>
+// Smooth scrolling for navbar links
+document.querySelectorAll('nav ul li a').forEach(link => {
+  link.addEventListener('click', function(e){
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// FAQ toggle (works for multiple FAQ sections)
+document.querySelectorAll('.faq-item h3').forEach(item => {
+  item.addEventListener('click', () => {
+    item.parentElement.classList.toggle('active');
+  });
+});
+
+// Gallery hover parallax effect
+const galleryImages = document.querySelectorAll('.gallery img');
+galleryImages.forEach(img => {
+  img.addEventListener('mousemove', e => {
+    const rect = img.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    img.style.transform = `scale(1.05) translate(${(x - rect.width/2)/20}px, ${(y - rect.height/2)/20}px)`;
+  });
+  img.addEventListener('mouseleave', () => {
+    img.style.transform = 'scale(1)';
+  });
+});
+
+// Scroll-triggered fade-in for features
+const features = document.querySelectorAll('.feature-card');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.style.transform = 'translateY(0)';
+      entry.target.style.opacity = '1';
+    }
+  });
+}, { threshold: 0.2 });
+
+features.forEach(feature => {
+  feature.style.transform = 'translateY(50px)';
+  feature.style.opacity = '0';
+  feature.style.transition = 'all 0.6s ease-out';
+  observer.observe(feature);
+});
+
+// Scroll-triggered fade-in for testimonials
+const testimonials = document.querySelectorAll('#testimonials .feature-card');
+testimonials.forEach(testimonial => {
+  testimonial.style.opacity = '0';
+  testimonial.style.transform = 'translateY(30px)';
+  testimonial.style.transition = 'all 0.7s ease-out';
+});
+
+window.addEventListener('scroll', () => {
+  const triggerBottom = window.innerHeight / 5 * 4;
+  testimonials.forEach(testimonial => {
+    const top = testimonial.getBoundingClientRect().top;
+    if(top < triggerBottom){
+      testimonial.style.opacity = '1';
+      testimonial.style.transform = 'translateY(0)';
+    }
+  });
+});
+
+// Optional: subtle background animation
+const hero = document.querySelector('.hero');
+let hue = 0;
+setInterval(() => {
+  hue = (hue + 1) % 360;
+  hero.style.backgroundColor = `hsl(${hue}, 50%, 5%)`;
+}, 100);
+</script>
+<!-- ROADMAP SECTION -->
+<section id="roadmap" class="features" style="padding:80px 50px; background:linear-gradient(120deg,#0a0a0a,#1a1a1a);">
+  <h2 style="color:#ff004f; text-align:center; margin-bottom:50px;">Roadmap</h2>
+  <div class="feature-card">
+    <h3>Phase 1</h3>
+    <p>Initial release with core executor tools and pro interface.</p>
+  </div>
+  <div class="feature-card">
+    <h3>Phase 2</h3>
+    <p>Expanded gallery, additional settings, and optimization.</p>
+  </div>
+  <div class="feature-card">
+    <h3>Phase 3</h3>
+    <p>Advanced features, security upgrades, and extended support.</p>
+  </div>
+</section>
+
+<!-- UPDATES SECTION -->
+<section id="updates" class="faq" style="padding:80px 50px; background:#0f0f0f;">
+  <h2 style="color:#ff004f; text-align:center; margin-bottom:50px;">Updates</h2>
+  <div class="faq-item">
+    <h3 onclick="toggleFAQ(this)">Update 1.0</h3>
+    <p>Initial release of Fear Executor with all core functionalities.</p>
+  </div>
+  <div class="faq-item">
+    <h3 onclick="toggleFAQ(this)">Update 1.1</h3>
+    <p>Bug fixes, speed improvements, and minor UI tweaks.</p>
+  </div>
+  <div class="faq-item">
+    <h3 onclick="toggleFAQ(this)">Update 1.2</h3>
+    <p>Added new gallery previews and enhanced user experience.</p>
+  </div>
+</section>
+
+<!-- TEAM SECTION -->
+<section id="team" class="gallery" style="padding:80px 50px; background:linear-gradient(120deg,#1a1a1a,#0a0a0a);">
+  <h2 style="color:#ff004f; text-align:center; margin-bottom:50px;">Our Team</h2>
+  <div class="feature-card">
+    <p>Lead Developer: Focuses on performance and security.</p>
+  </div>
+  <div class="feature-card">
+    <p>UI/UX Designer: Creates sleek interfaces and user flows.</p>
+  </div>
+  <div class="feature-card">
+    <p>Support Team: Ensures users get fast and reliable help.</p>
+  </div>
+</section>
+
+<!-- EXTENDED FAQ SECTION -->
+<section id="faq-extended" class="faq" style="padding:80px 50px; background:#0f0f0f;">
+  <h2 style="color:#ff004f; text-align:center; margin-bottom:50px;">Additional FAQs</h2>
+  <div class="faq-item">
+    <h3 onclick="toggleFAQ(this)">Can I request new features?</h3>
+    <p>Yes! User feedback is always welcome and considered.</p>
+  </div>
+  <div class="faq-item">
+    <h3 onclick="toggleFAQ(this)">Do I need special permissions?</h3>
+    <p>No special permissions are needed to run the executor.</p>
+  </div>
+  <div class="faq-item">
+    <h3 onclick="toggleFAQ(this)">Is it compatible with updates?</h3>
+    <p>Yes, frequent updates ensure compatibility with new versions.</p>
+  </div>
+  <div class="faq-item">
+    <h3 onclick="toggleFAQ(this)">What platforms are supported?</h3>
+    <p>Currently optimized for PC environments, full support planned.</p>
+  </div>
+</section>
+
+<!-- DECORATIVE CSS -->
+<style>
+/* Feature Cards hover effect */
+.feature-card { background:rgba(20,20,20,0.85); border-radius:15px; padding:25px; margin:20px; box-shadow:0 10px 30px rgba(0,0,0,0.5); transition:all 0.4s; }
+.feature-card:hover { transform:translateY(-8px) scale(1.02); box-shadow:0 15px 35px rgba(255,0,79,0.4); }
+
+/* FAQ items */
+.faq-item { background:rgba(30,30,30,0.85); border-radius:12px; padding:20px; margin:15px 0; cursor:pointer; transition:background 0.3s; }
+.faq-item.active { background:rgba(255,0,79,0.2); }
+
+/* Gallery images */
+.gallery img { border-radius:15px; margin:15px; transition:transform 0.4s, box-shadow 0.4s; }
+.gallery img:hover { transform:scale(1.08); box-shadow:0 12px 40px rgba(255,0,79,0.5); }
+
+/* Section spacing */
+section { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; text-align:center; }
+h2 { font-size:2.5rem; font-weight:bold; letter-spacing:1px; }
+
+/* Particle effect placeholder (can add JS later) */
+body::after { content:""; position:fixed; width:100%; height:100%; top:0; left:0; pointer-events:none; background:url('https://i.imgur.com/c9ptYlK.png') repeat; opacity:0.02; z-index:0; }
+</style>
+<script>
+// Typing effect for hero subtitle
+const heroText = document.querySelector('.hero p');
+const textContent = "Professional tools for the ultimate experience.";
+let index = 0;
+function typeHeroText() {
+  heroText.textContent = textContent.slice(0, index);
+  index++;
+  if(index <= textContent.length) setTimeout(typeHeroText, 80);
+}
+typeHeroText();
+
+// Animate gradient background on hero
+let hue = 0;
+setInterval(() => {
+  hue = (hue + 0.5) % 360;
+  document.querySelector('.hero').style.background = `linear-gradient(120deg, hsl(${hue}, 50%, 5%), hsl(${(hue+60)%360}, 50%, 10%))`;
+}, 100);
+
+// Simple carousel for gallery images
+let currentIndex = 0;
+const galleryImgs = document.querySelectorAll('#gallery img');
+function showImage(index) {
+  galleryImgs.forEach((img,i) => img.style.display = i === index ? 'block' : 'none');
+}
+showImage(currentIndex);
+setInterval(() => {
+  currentIndex = (currentIndex + 1) % galleryImgs.length;
+  showImage(currentIndex);
+}, 3000);
+
+// Scroll fade-in for all sections
+const sections = document.querySelectorAll('section');
+sections.forEach(sec => {
+  sec.style.opacity = 0;
+  sec.style.transform = 'translateY(50px)';
+  sec.style.transition = 'all 0.8s ease-out';
+});
+window.addEventListener('scroll', () => {
+  const trigger = window.innerHeight * 0.85;
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    if(top < trigger){
+      sec.style.opacity = 1;
+      sec.style.transform = 'translateY(0)';
+    }
+  });
+});
+
+// Button hover glow effect
+document.querySelectorAll('.btn-primary').forEach(btn => {
+  btn.addEventListener('mouseenter', () => btn.style.boxShadow = '0 0 20px rgba(255,0,79,0.8)');
+  btn.addEventListener('mouseleave', () => btn.style.boxShadow = '0px 10px 25px rgba(255,0,79,0.5)');
+});
+
+// Optional: particle effect using JS canvas
+const canvas = document.createElement('canvas');
+document.body.appendChild(canvas);
+canvas.style.position = 'fixed';
+canvas.style.top = 0;
+canvas.style.left = 0;
+canvas.style.width = '100%';
+canvas.style.height = '100%';
+canvas.style.pointerEvents = 'none';
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+const ctx = canvas.getContext('2d');
+let particles = [];
+for(let i=0;i<150;i++){
+  particles.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, r:Math.random()*2+1, dx:(Math.random()-0.5)*0.5, dy:(Math.random()-0.5)*0.5});
+}
+function animateParticles(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(255,0,79,0.3)';
+    ctx.fill();
+    p.x += p.dx;
+    p.y += p.dy;
+    if(p.x<0 || p.x>canvas.width) p.dx*=-1;
+    if(p.y<0 || p.y>canvas.height) p.dy*=-1;
+  });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+window.addEventListener('resize', () => { canvas.width=window.innerWidth; canvas.height=window.innerHeight; });
+</script>
