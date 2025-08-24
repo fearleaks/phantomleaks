@@ -1,236 +1,378 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fear Executor - Premium</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Northside WL Store</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Roboto',sans-serif;background:#0a0a0a;color:#f5f5f5;overflow-x:hidden;scroll-behavior:smooth;}
-a{text-decoration:none;color:inherit;}
+  * { box-sizing: border-box; }
+  body, html {
+    margin: 0; padding: 0; height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: url('https://i.imgur.com/vB8R1ZO.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    color: #f0f0f0;
+    position: relative;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed; top:0; left:0; right:0; bottom:0;
+    background: rgba(15,15,15,0.85);
+    z-index: 0;
+  }
+  #app { position: relative; z-index: 1; max-width: 980px; margin: 0 auto; padding: 30px 20px 60px; transition: filter 0.5s ease; }
+  header { text-align: center; margin-bottom: 10px; }
+  header h1 { font-size: 3rem; font-weight: 900; letter-spacing: 3px; margin-bottom: 8px; text-shadow: 0 0 8px #8000ffaa; }
+  header p { font-size: 1.2rem; color: #bbb; margin-bottom: 20px; }
+  #search-bar {
+    display: block; width: 100%; max-width: 400px;
+    margin: 0 auto 30px auto; padding: 10px 14px;
+    font-size: 1.1rem; border-radius: 10px; border: none;
+    outline: none; box-shadow: 0 0 10px #8000ffaa inset;
+    background: #222; color: #eee;
+  }
+  #search-bar::placeholder { color: #666; }
 
-/* NAVBAR */
-nav{position:fixed;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:15px 50px;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);z-index:1000;border-bottom:1px solid #222;}
-nav .logo img{height:50px;}
-nav ul{display:flex;gap:30px;list-style:none;}
-nav ul li a{font-weight:600;position:relative;transition:color 0.3s;}
-nav ul li a::after{content:"";position:absolute;width:0;height:2px;bottom:-5px;left:0;background:#8e44ad;transition:width 0.3s;}
-nav ul li a:hover::after{width:100%;}
-nav ul li a:hover{color:#8e44ad;}
+  /* Login overlay */
+  #login-overlay {
+    position: fixed; top:0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,0.85); color: #8000ff;
+    display: flex; flex-direction: column; justify-content: center;
+    align-items: center; z-index: 9999;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center; padding: 0 20px;
+  }
+  #login-overlay h2 { margin-bottom:20px; font-size:2rem; max-width: 360px; }
+  #login-overlay h2 small { font-weight:400; font-size:1rem; color:#8000ffcc; }
+  #login-overlay input {
+    padding:10px; font-size:1.2rem; margin-bottom:10px; border-radius:6px;
+    border:none; width:280px; max-width:90vw;
+  }
+  #login-overlay button {
+    padding:12px 0; width:280px; max-width:90vw;
+    font-size:1.2rem; font-weight:700; border:none; border-radius:8px;
+    background:#8000ff; color:#fff; cursor:pointer;
+  }
+  #login-error { margin-top:12px; color:#ff5555; font-weight:700; min-height:1.2rem; }
 
-/* HERO */
-.hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;}
-#particles-js{position:absolute;width:100%;height:100%;top:0;left:0;z-index:0;}
-.hero-content{position:relative;z-index:2;}
-.hero h1{font-size:3.5rem;color:#fff;margin-bottom:15px;font-weight:700;animation:fadeInDown 1s;}
-.hero p{font-size:1.3rem;color:#ccc;margin-bottom:25px;animation:fadeInUp 1.2s;}
-.btn-primary{padding:16px 35px;background:linear-gradient(45deg,#8e44ad,#9b59b6);border:none;border-radius:12px;color:#fff;font-weight:700;cursor:pointer;transition:transform 0.3s,box-shadow 0.3s;}
-.btn-primary:hover{transform:translateY(-5px);box-shadow:0 12px 30px rgba(142,68,173,0.6);}
-.preview-images{display:flex;justify-content:center;align-items:center;margin-top:40px;position:relative;z-index:2;}
-.preview-images img{width:180px;border-radius:12px;box-shadow:0 10px 35px rgba(0,0,0,0.6);margin:0 -50px;transition:transform 0.6s,box-shadow 0.6s;}
-.preview-images img:hover{transform:scale(1.15) translateY(-5px) rotateZ(-2deg);z-index:10;box-shadow:0 20px 50px rgba(142,68,173,0.5);}
-.preview-images img.float{animation:float 3s ease-in-out infinite alternate;}
+  /* Dashboard */
+  #dashboard-section {
+    max-width: 940px; margin: 0 auto 40px; background: rgba(30,30,30,0.9);
+    padding: 28px 30px; border-radius: 14px; box-shadow: 0 8px 30px rgba(0,0,0,0.7);
+    display: none;
+  }
+  #dashboard-section h2 { color: #8000ff; margin-bottom: 18px; text-align:center; }
+  #logout-btn {
+    display:block; margin:0 auto 20px auto; background:#555;
+    border:none; padding:14px 0; border-radius:8px; color:white;
+    font-weight:700; font-size:1.1rem; cursor:pointer; width:180px;
+  }
+  #logout-btn:hover { background:#8000ff; }
 
-/* SECTIONS */
-section{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;text-align:center;padding:100px 50px;position:relative;z-index:1;}
-h2{font-size:2.8rem;font-weight:700;letter-spacing:1px;margin-bottom:50px;color:#8e44ad;opacity:0;transform:translateY(50px);transition:all 0.6s;}
+  /* Products grid */
+  .products {
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+    gap:28px; margin-bottom:40px;
+  }
+  .card {
+    background: rgba(30,30,30,0.85); border-radius:12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6); padding:20px;
+    display:flex; flex-direction:column; transition: transform 0.25s ease, box-shadow 0.25s ease;
+    position: relative; cursor: default;
+  }
+  .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 10px 3px #8000ffcc;
+  }
+  .card img { max-height:160px; object-fit:contain; margin-bottom:18px; border-radius:8px; background:#111; padding:10px; }
+  .card h2 { font-size:1.5rem; margin:0 0 12px; font-weight:700; color:#8000ff; display:flex; align-items:center; gap:8px; }
+  .card p { flex-grow:1; color:#ccc; font-size:1rem; margin-bottom:20px; line-height:1.4; }
+  .out-of-stock { position:absolute; top:12px; right:12px; background:#8000ffcc; color:white; font-weight:800;
+    padding:6px 14px; border-radius:16px; font-size:1rem; text-transform:uppercase;
+    pointer-events:none; user-select:none; box-shadow:0 0 10px #8000ffbb;
+  }
+  .buy-button { background:#555; border:none; padding:14px 0; border-radius:8px; color:#bbb;
+    font-weight:700; font-size:1.1rem; cursor:not-allowed;
+  }
+  .buy-button.enabled { background:#8000ff; color:white; cursor:pointer; }
+  .buy-button.enabled:hover { background:#5500aa; }
 
-/* FEATURE CARDS */
-.feature-card{background:rgba(20,20,20,0.85);border-radius:15px;padding:30px;margin:20px;box-shadow:0 12px 35px rgba(0,0,0,0.5);transition:all 0.4s;width:280px;opacity:0;transform:translateY(50px);}
-.feature-card:hover{transform:translateY(-10px) scale(1.03);box-shadow:0 18px 45px rgba(142,68,173,0.5);}
+  /* Cart */
+  #cart-icon {
+    position: fixed; top:20px; right:20px; background:#8000ffcc;
+    padding:10px 14px; border-radius:50%; color:white; font-weight:700;
+    font-size:1.5rem; cursor:pointer; z-index:300;
+    display:flex; align-items:center; justify-content:center; box-shadow:0 0 10px #8000ffbb;
+  }
+  #cart-count { position:absolute; top:-6px; right:-6px; background:#aa55ff; border-radius:50%;
+    padding:4px 8px; font-size:1rem; color:white; font-weight:900; user-select:none; min-width:24px; text-align:center;
+  }
+  #cart-popup {
+    position:fixed; top:60px; right:20px; width:320px; max-height:420px;
+    background: rgba(20,20,20,0.95); border-radius:14px; box-shadow:0 0 30px #8000ffbb;
+    padding:20px; overflow-y:auto; z-index:350; display:none; flex-direction:column;
+  }
+  #cart-popup h3 { color:#8000ff; margin-bottom:16px; text-align:center; }
+  #cart-items { flex-grow:1; overflow-y:auto; color:#ddd; font-size:1.1rem; }
+  #cart-items div { display:flex; justify-content:space-between; margin-bottom:12px; }
+  #cart-total { font-size:1.4rem; font-weight:700; margin-top:14px; text-align:right; color:#aa55ff; }
+  #checkout-btn-popup { margin-top:20px; background:#8000ff; border:none; padding:14px 0; font-size:1.2rem; font-weight:700; color:white; border-radius:12px; cursor:pointer; transition: background 0.3s ease; }
+  #checkout-btn-popup:disabled { background:#555; color:#bbb; cursor:not-allowed; }
+  #checkout-btn-popup:hover:not(:disabled) { background:#5500aa; }
 
-/* GALLERY */
-.gallery img{border-radius:15px;margin:15px;transition:transform 0.4s,box-shadow 0.4s;max-width:250px;cursor:pointer;}
-.gallery img:hover{transform:scale(1.08);box-shadow:0 15px 45px rgba(142,68,173,0.5);}
-.lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);display:none;justify-content:center;align-items:center;z-index:3000;}
-.lightbox img{max-width:90%;max-height:90%;border-radius:15px;}
+  footer { margin-top:60px; padding:20px; text-align:center; font-size:1rem; color:#8000ff; letter-spacing:1.2px; }
+  footer a { color:#8000ff; text-decoration:underline; font-weight:700; }
 
-/* FAQ */
-.faq-item{background:rgba(30,30,30,0.85);border-radius:12px;padding:25px;margin:15px 0;cursor:pointer;transition:background 0.3s;width:80%;max-width:600px;}
-.faq-item.active{background:rgba(142,68,173,0.15);}
+  /* Credits section */
+  #credits {
+    max-width: 940px;
+    margin: 20px auto;
+    background: rgba(30,30,30,0.85);
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    color: #aa55ff;
+    font-size: 1rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+  }
 
-/* TESTIMONIALS */
-.carousel{display:flex;overflow-x:auto;gap:20px;width:100%;max-width:900px;scroll-snap-type:x mandatory;scroll-behavior:smooth;margin:auto;padding-bottom:20px;}
-.carousel-item{min-width:300px;flex-shrink:0;background:rgba(20,20,20,0.85);border-radius:15px;padding:25px;scroll-snap-align:center;transition:transform 0.3s;}
-.carousel-item:hover{transform:scale(1.05);}
-
-/* PRICING */
-.pricing-card{background:rgba(20,20,20,0.85);border-radius:15px;padding:35px;margin:20px;box-shadow:0 12px 35px rgba(0,0,0,0.5);transition:all 0.4s;width:280px;position:relative;}
-.pricing-card:hover{transform:translateY(-10px) scale(1.03);box-shadow:0 18px 50px rgba(142,68,173,0.5);}
-.pricing-card .badge{position:absolute;top:-10px;right:-10px;background:#8e44ad;padding:8px 12px;border-radius:8px;font-weight:700;color:#fff;font-size:0.8rem;}
-
-/* CHECKOUT MODAL */
-#checkoutModal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);display:none;justify-content:center;align-items:center;z-index:2000;transition:all 0.4s;animation:fadeInDown 0.5s;}
-.checkout-container{background:#1a1a1a;padding:40px;border-radius:15px;width:380px;text-align:center;box-shadow:0 12px 40px rgba(142,68,173,0.5);}
-.checkout-container input, .checkout-container select{padding:14px;border-radius:10px;border:none;width:90%;margin-bottom:15px;background:#222;color:#fff;}
-.checkout-container button{margin-top:10px;width:95%;}
-
-/* BACK TO TOP */
-#backToTop{position:fixed;bottom:40px;right:40px;background:#8e44ad;color:#fff;padding:12px 18px;border-radius:10px;font-weight:700;cursor:pointer;display:none;z-index:4000;transition:all 0.3s;}
-#backToTop:hover{background:#9b59b6;}
-
-/* FOOTER */
-footer{text-align:center;padding:30px;background:#111;color:#ccc;}
-footer a{color:#8e44ad;margin:0 10px;text-decoration:none;}
-footer a:hover{text-decoration:underline;}
-
-/* WATERMARK */
-#watermark{position:fixed;bottom:20px;right:20px;width:120px;opacity:0.15;pointer-events:none;z-index:9999;animation:rotate 20s linear infinite;}
-
-/* ANIMATIONS */
-@keyframes rotate{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
-@keyframes fadeInDown{from{opacity:0;transform:translateY(-50px);}to{opacity:1;transform:translateY(0);}}
-@keyframes fadeInUp{from{opacity:0;transform:translateY(50px);}to{opacity:1;transform:translateY(0);}}
-@keyframes float{0%{transform:translateY(0px);}100%{transform:translateY(-15px);}}
-@media(max-width:768px){.preview-images{flex-direction:column;margin-top:25px;}.preview-images img{margin:10px 0;} nav ul{flex-direction:column;gap:15px;}}
+  @media (max-width:480px) {
+    header h1 { font-size:2.4rem; }
+    #dashboard-section { max-width:90vw; }
+    #cart-popup { width:90vw; right:5vw; }
+  }
 </style>
 </head>
 <body>
-
-<!-- NAV -->
-<nav>
-  <div class="logo"><img src="https://i.imgur.com/QCl58wP.png" alt="Logo"></div>
-  <ul>
-    <li><a href="#home">Home</a></li>
-    <li><a href="#features">Features</a></li>
-    <li><a href="#gallery">Gallery</a></li>
-    <li><a href="#faq">FAQ</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#key-system">Activate</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section class="hero" id="home">
-  <div id="particles-js"></div>
-  <div class="hero-content">
-    <h1>Fear Executor</h1>
-    <p>Professional tools for the ultimate experience.</p>
-    <button class="btn-primary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Get Started</button>
-    <div class="preview-images">
-      <img src="https://i.imgur.com/c9ptYlK.png" class="float">
-      <img src="https://i.imgur.com/c9ptYlK.png" class="float">
-      <img src="https://i.imgur.com/c9ptYlK.png" class="float">
-    </div>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section id="features">
-  <h2>Features</h2>
-  <div class="feature-card"><h3>Fast Performance</h3><p>Optimized for maximum speed.</p></div>
-  <div class="feature-card"><h3>Secure</h3><p>Safe and reliable.</p></div>
-  <div class="feature-card"><h3>User Friendly</h3><p>Easy to use interface.</p></div>
-  <div class="feature-card"><h3>Customizable</h3><p>Adjust tools as needed.</p></div>
-  <div class="feature-card"><h3>Real-Time Updates</h3><p>Always stay up to date.</p></div>
-</section>
-
-<!-- GALLERY -->
-<section id="gallery">
-  <h2>Gallery</h2>
-  <div class="gallery">
-    <img src="https://i.imgur.com/c9ptYlK.png">
-    <img src="https://i.imgur.com/c9ptYlK.png">
-    <img src="https://i.imgur.com/c9ptYlK.png">
-  </div>
-</section>
-<div class="lightbox" id="lightbox"><img src=""><div onclick="document.getElementById('lightbox').style.display='none'" style="position:absolute;top:20px;right:30px;font-size:30px;color:#fff;cursor:pointer;">&times;</div></div>
-
-<!-- FAQ -->
-<section id="faq">
-  <h2>FAQ</h2>
-  <div class="faq-item"><h3>Easy to Install?</h3><p>Yes, step-by-step guides included.</p></div>
-  <div class="faq-item"><h3>Support Available?</h3><p>24/7 help for all users.</p></div>
-  <div class="faq-item"><h3>Customizable?</h3><p>Settings and tools flexible.</p></div>
-</section>
-
-<!-- PRICING -->
-<section id="pricing">
-  <h2>Pricing</h2>
-  <div class="pricing-card"><h3>1 Day</h3><p>$2 - Quick access for a day</p><button class="btn-primary" onclick="openCheckout('1day')">Buy Now</button></div>
-  <div class="pricing-card"><h3>Lifetime</h3><span class="badge">Most Popular</span><p>$12 - Full access forever</p><button class="btn-primary" onclick="openCheckout('lifetime')">Buy Now</button></div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section id="testimonials">
-  <h2>Testimonials</h2>
-  <div class="carousel">
-    <div class="carousel-item"><p>“Fear Executor improved my workflow tremendously!”</p></div>
-    <div class="carousel-item"><p>“Super smooth interface and reliable tools!”</p></div>
-    <div class="carousel-item"><p>“Easy to use, fast, and secure!”</p></div>
-  </div>
-</section>
-
-<!-- CHECKOUT MODAL -->
-<div id="checkoutModal">
-  <div class="checkout-container">
-    <h2>Create Account & Checkout</h2>
-    <input type="text" id="accountUsername" placeholder="Username">
-    <input type="password" id="accountPassword" placeholder="Password">
-    <select id="planSelect">
-      <option value="1day">1 Day - $2</option>
-      <option value="lifetime">Lifetime - $12</option>
-    </select>
-    <button class="btn-primary" id="checkoutBtn">Checkout & Get Key</button>
-    <p id="checkoutMessage"></p>
-    <button class="btn-primary" style="background:#555;" onclick="closeCheckout()">Cancel</button>
-  </div>
+<div id="login-overlay">
+  <h2>Login to Northside WL Store 💻<br>
+    <small>Make an account and get into shopping!</small>
+  </h2>
+  <input id="login-username" type="text" placeholder="Username" autocomplete="off" />
+  <input id="login-password" type="password" placeholder="Password" autocomplete="off" />
+  <button id="login-btn">Login / Register</button>
+  <div id="login-error"></div>
 </div>
 
-<!-- BACK TO TOP -->
-<div id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</div>
+<div id="app" aria-live="polite">
+  <header>
+    <h1>🛒 Northside WL Store</h1>
+    <p>🔥 All items currently out of stock — stay tuned for restocks!</p>
+    <input type="search" id="search-bar" placeholder="Search items..." aria-label="Search store items" />
+  </header>
 
-<!-- WATERMARK -->
-<img id="watermark" src="https://i.imgur.com/QCl58wP.png">
+  <section id="dashboard-section" aria-label="User Dashboard">
+    <h2>Welcome, <span id="user-display"></span>!</h2>
+    <button id="logout-btn">Logout</button>
+  </section>
 
-<!-- FOOTER -->
+  <section class="products" aria-label="Products for sale">
+    <!-- Coins -->
+    <div class="card" data-name="1000 Coins" data-desc="">
+      <span class="out-of-stock">Out of Stock</span>
+      <img src="https://i.imgur.com/vB8R1ZO.jpeg" alt="1000 Coins" />
+      <h2>💰 1000 Coins – $10</h2>
+      <p></p>
+      <button class="buy-button" disabled>Add to Cart</button>
+    </div>
+    <div class="card" data-name="2000 Coins" data-desc="">
+      <span class="out-of-stock">Out of Stock</span>
+      <img src="https://i.imgur.com/vB8R1ZO.jpeg" alt="2000 Coins" />
+      <h2>💰 2000 Coins – $20</h2>
+      <p></p>
+      <button class="buy-button" disabled>Add to Cart</button>
+    </div>
+    <div class="card" data-name="3000 Coins" data-desc="">
+      <span class="out-of-stock">Out of Stock</span>
+      <img src="https://i.imgur.com/vB8R1ZO.jpeg" alt="3000 Coins" />
+      <h2>💰 3000 Coins – $30</h2>
+      <p></p>
+      <button class="buy-button" disabled>Add to Cart</button>
+    </div>
+    <div class="card" data-name="4000 Coins" data-desc="">
+      <span class="out-of-stock">Out of Stock</span>
+      <img src="https://i.imgur.com/vB8R1ZO.jpeg" alt="4000 Coins" />
+      <h2>💰 4000 Coins – $40</h2>
+      <p></p>
+      <button class="buy-button" disabled>Add to Cart</button>
+    </div>
+    <div class="card" data-name="5000 Coins" data-desc="">
+      <span class="out-of-stock">Out of Stock</span>
+      <img src="https://i.imgur.com/vB8R1ZO.jpeg" alt="5000 Coins" />
+      <h2>💰 5000 Coins – $50</h2>
+      <p></p>
+      <button class="buy-button" disabled>Add to Cart</button>
+    </div>
+
+    <!-- Unbans -->
+    <div class="card" data-name="Regular Unban" data-desc="">
+      <span class="out-of-stock">Out of Stock</span>
+      <img src="https://i.imgur.com/vB8R1ZO.jpeg" alt="Regular Unban" />
+      <h2>💻 Regular Unban – $10</h2>
+      <p></p>
+      <button class="buy-button" disabled>Add to Cart</button>
+    </div>
+    <div class="card" data-name="Tos Unban" data-desc="">
+      <span class="out-of-stock">Out of Stock</span>
+      <img src="https://i.imgur.com/vB8R1ZO.jpeg" alt="Tos Unban" />
+      <h2>💻 Tos Unban – $20</h2>
+      <p></p>
+      <button class="buy-button" disabled>Add to Cart</button>
+    </div>
+
+    <!-- Gang Package -->
+    <div class="card" data-name="Gang Package" data-desc="">
+      <span class="out-of-stock">Out of Stock</span>
+      <img src="https://i.imgur.com/vB8R1ZO.jpeg" alt="Gang Package" />
+      <h2>🔫 Gang Package – $30</h2>
+      <p></p>
+      <button class="buy-button" disabled>Add to Cart</button>
+    </div>
+
+    <!-- Custom Gun -->
+    <div class="card" data-name="Custom Gun" data-desc="">
+      <span class="out-of-stock">Out of Stock</span>
+      <img src="https://i.imgur.com/vB8R1ZO.jpeg" alt="Custom Gun" />
+      <h2>🔫 Custom Gun – $40</h2>
+      <p></p>
+      <button class="buy-button" disabled>Add to Cart</button>
+    </div>
+  </section>
+
+ <!-- Credits Section -->
+<div id="credits">
+  💜 Credits 💜<br>
+  Owner: Fear<br>
+  Owner: Jonny
+</div>
+
+
+<div id="cart-icon" aria-label="Shopping cart" role="button" tabindex="0" title="Open Cart">
+  🛒<div id="cart-count" aria-live="polite" aria-atomic="true">0</div>
+</div>
+<div id="cart-popup" role="dialog" aria-modal="true" aria-labelledby="cart-popup-title">
+  <h3 id="cart-popup-title">Your Cart</h3>
+  <div id="cart-items" tabindex="0" aria-live="polite" aria-atomic="true"><p>Your cart is empty.</p></div>
+  <div id="cart-total">Total: $0</div>
+  <button id="checkout-btn-popup" disabled>Checkout</button>
+</div>
+
 <footer>
-  <p>© 2025 Fear Executor. All rights reserved.</p>
-  <p><a href="#">Twitter</a> | <a href="#">Discord</a> | <a href="#">YouTube</a></p>
+  &copy; 2025 Northside WL — Join our Discord for support and updates:
+  <a href="https://discord.gg/northside-wl" target="_blank" rel="noopener noreferrer">https://discord.gg/northside-wl</a>
 </footer>
 
 <script>
-// PARTICLES
-particlesJS("particles-js",{ "particles":{"number":{"value":80},"color":{"value":"#8e44ad"},"shape":{"type":"circle"},"opacity":{"value":0.2,"random":true},"size":{"value":4,"random":true},"line_linked":{"enable":true,"distance":150,"color":"#8e44ad","opacity":0.15,"width":1},"move":{"enable":true,"speed":2,"direction":"none","random":true,"straight":false}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"repulse"},"onclick":{"enable":true,"mode":"push"}},"modes":{"repulse":{"distance":100},"push":{"particles_nb":4}}},"retina_detect":true });
+  // ===== LOGIN SYSTEM =====
+  let users = JSON.parse(localStorage.getItem('users') || '{}');
+  const loginOverlay = document.getElementById('login-overlay');
+  const usernameInput = document.getElementById('login-username');
+  const passwordInput = document.getElementById('login-password');
+  const loginBtn = document.getElementById('login-btn');
+  const loginError = document.getElementById('login-error');
+  const app = document.getElementById('app');
+  const dashboard = document.getElementById('dashboard-section');
+  const userDisplay = document.getElementById('user-display');
+  const logoutBtn = document.getElementById('logout-btn');
 
-// NAV SCROLL
-document.querySelectorAll('nav ul li a').forEach(link=>{link.addEventListener('click',e=>{e.preventDefault();document.querySelector(link.getAttribute('href')).scrollIntoView({behavior:'smooth'});});});
+  function showDashboard(username){
+    loginOverlay.style.display='none';
+    app.style.filter='none';
+    dashboard.style.display='block';
+    userDisplay.textContent=username;
+    enableCartButtons(true);
+  }
+  function showLogin(){
+    dashboard.style.display='none';
+    loginOverlay.style.display='flex';
+    app.style.filter='blur(6px)';
+    usernameInput.value=''; passwordInput.value=''; loginError.textContent='';
+    enableCartButtons(false);
+  }
 
-// FAQ toggle
-document.querySelectorAll('.faq-item h3').forEach(i=>i.addEventListener('click',()=>i.parentElement.classList.toggle('active')));
+  const currentUser=sessionStorage.getItem('currentUser');
+  if(currentUser) showDashboard(currentUser);
 
-// LIGHTBOX
-document.querySelectorAll('.gallery img').forEach(img=>img.addEventListener('click',()=>{document.getElementById('lightbox').style.display='flex';document.querySelector('#lightbox img').src=img.src;}));
+  loginBtn.addEventListener('click', ()=>{ 
+    const u=usernameInput.value.trim(), p=passwordInput.value.trim();
+    if(!u||!p){ loginError.textContent='Please enter username and password.'; return; }
 
-// FEATURE ANIMATION ON SCROLL
-function isInViewport(el){const rect=el.getBoundingClientRect();return rect.top<window.innerHeight-100;}
-function animateFeatures(){document.querySelectorAll('.feature-card').forEach(card=>{if(isInViewport(card)){card.style.opacity='1';card.style.transform='translateY(0)';}});document.querySelectorAll('h2').forEach(h=>{if(isInViewport(h)){h.style.opacity='1';h.style.transform='translateY(0)';}});}
-window.addEventListener('scroll',animateFeatures);
-animateFeatures();
+    if(users[u]){
+      if(users[u]===p){
+        sessionStorage.setItem('currentUser',u);
+        showDashboard(u);
+      } else {
+        loginError.textContent='Incorrect password.';
+      }
+    } else {
+      users[u]=p;
+      localStorage.setItem('users',JSON.stringify(users));
+      sessionStorage.setItem('currentUser',u);
+      showDashboard(u);
+    }
+  });
 
-// KEY & ACCOUNT SYSTEM
-let accounts={};
-function generateKey(){let c="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";let k="";for(let i=0;i<16;i++){k+=c.charAt(Math.floor(Math.random()*c.length));}return k;}
-function openCheckout(plan){document.getElementById('checkoutModal').style.display='flex';document.getElementById('planSelect').value=plan;document.getElementById('checkoutMessage').textContent='';}
-function closeCheckout(){document.getElementById('checkoutModal').style.display='none';}
-document.getElementById('checkoutBtn').addEventListener('click',()=>{
-  const username=document.getElementById('accountUsername').value.trim();
-  const password=document.getElementById('accountPassword').value.trim();
-  const plan=document.getElementById('planSelect').value;
-  const msg=document.getElementById('checkoutMessage');
-  if(!username||!password){msg.style.color='#8e44ad';msg.textContent='Please fill all fields.';return;}
-  if(accounts[username]){msg.style.color='#8e44ad';msg.textContent='Username already exists.';return;}
-  const key=generateKey();
-  accounts[username]={password,key,plan};
-  msg.style.color='#8e44ad';
-  msg.innerHTML=`✅ Account created!<br>Your key: <span style="color:#8e44ad;">${key}</span>`;
-  setTimeout(()=>{closeCheckout();},5000);
-});
+  logoutBtn.addEventListener('click', ()=> {
+    sessionStorage.removeItem('currentUser');
+    showLogin();
+  });
 
-// BACK TO TOP
-window.addEventListener('scroll',()=>{document.getElementById('backToTop').style.display=(window.scrollY>200)?'block':'none';});
+  // ===== PRODUCTS & CART =====
+  const productCards=document.querySelectorAll('.card'),products=[];
+  productCards.forEach(card=>{
+    products.push({
+      name: card.dataset.name,
+      price: parseInt(card.querySelector('h2').textContent.replace(/[^0-9]/g,''))||0,
+      button: card.querySelector('.buy-button')
+    });
+  });
+
+  const cartIcon=document.getElementById('cart-icon');
+  const cartPopup=document.getElementById('cart-popup');
+  const cartItems=document.getElementById('cart-items');
+  const cartTotal=document.getElementById('cart-total');
+  const checkoutBtn=document.getElementById('checkout-btn-popup');
+  let cart=[];
+
+  function enableCartButtons(enable){
+    products.forEach(p=>{
+      if(enable){ p.button.classList.add('enabled'); p.button.disabled=false; }
+      else { p.button.classList.remove('enabled'); p.button.disabled=true; }
+    });
+  }
+
+  products.forEach(p=>{
+    p.button.addEventListener('click',()=>{
+      cart.push(p);
+      updateCart();
+    });
+  });
+
+  cartIcon.addEventListener('click',()=>{ cartPopup.style.display=(cartPopup.style.display==='flex'?'none':'flex'); });
+
+  function updateCart(){
+    cartItems.innerHTML='';
+    if(cart.length===0){ cartItems.innerHTML='<p>Your cart is empty.</p>'; checkoutBtn.disabled=true; }
+    else{
+      let total=0;
+      cart.forEach(item=>{
+        total+=item.price;
+        const div=document.createElement('div');
+        div.textContent=item.name+' - $'+item.price;
+        cartItems.appendChild(div);
+      });
+      cartTotal.textContent='Total: $'+total;
+      checkoutBtn.disabled=false;
+    }
+    document.getElementById('cart-count').textContent=cart.length;
+  }
+
+  checkoutBtn.addEventListener('click',()=>{
+    alert('Checkout complete! Total: $'+cart.reduce((sum,i)=>sum+i.price,0));
+    cart=[]; updateCart();
+  });
+
 </script>
 </body>
 </html>
