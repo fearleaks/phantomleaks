@@ -202,52 +202,66 @@
 </footer>
 
 <script>
-  // LOGIN SYSTEM + CART SYSTEM
-  let users = JSON.parse(localStorage.getItem('users') || '{}');
+  // LOGIN SYSTEM
   const loginOverlay = document.getElementById('login-overlay');
   const usernameInput = document.getElementById('login-username');
   const passwordInput = document.getElementById('login-password');
   const loginBtn = document.getElementById('login-btn');
   const loginError = document.getElementById('login-error');
-  const app = document.getElementById('app');
   const dashboard = document.getElementById('dashboard-section');
   const userDisplay = document.getElementById('user-display');
   const logoutBtn = document.getElementById('logout-btn');
+  const app = document.getElementById('app');
+
+  let users = JSON.parse(localStorage.getItem('users') || '{}');
+
+  function enableCartButtons(enable){
+    document.querySelectorAll('.card').forEach(p=>{
+      const btn=p.querySelector('.buy-button');
+      if(!p.querySelector('.out-of-stock')){
+        btn.classList.toggle('enabled', enable);
+        btn.disabled=!enable;
+      }
+    });
+  }
 
   function showDashboard(username){
     loginOverlay.style.display='none';
-    app.style.filter='none';
     dashboard.style.display='block';
+    app.style.filter='none';
     userDisplay.textContent=username;
     enableCartButtons(true);
   }
+
   function showLogin(){
     dashboard.style.display='none';
     loginOverlay.style.display='flex';
     app.style.filter='blur(6px)';
-    usernameInput.value=''; passwordInput.value=''; loginError.textContent='';
+    usernameInput.value='';
+    passwordInput.value='';
+    loginError.textContent='';
     enableCartButtons(false);
   }
 
-  const currentUser = sessionStorage.getItem('currentUser');
+  // initial check
+  const currentUser=sessionStorage.getItem('currentUser');
   if(currentUser) showDashboard(currentUser);
   else showLogin();
 
   loginBtn.addEventListener('click', ()=>{
-    const u=usernameInput.value.trim(), p=passwordInput.value.trim();
-    if(!u || !p){ loginError.textContent='Please enter username and password.'; return; }
+    const u=usernameInput.value.trim();
+    const p=passwordInput.value.trim();
+    if(!u||!p){ loginError.textContent='Please enter username and password.'; return; }
 
     if(users[u]){
-      if(users[u] === p){
-        sessionStorage.setItem('currentUser', u);
+      if(users[u]===p){
+        sessionStorage.setItem('currentUser',u);
         showDashboard(u);
-      } else {
-        loginError.textContent='Incorrect password.';
-      }
+      } else { loginError.textContent='Incorrect password.'; }
     } else {
-      users[u] = p;
-      localStorage.setItem('users', JSON.stringify(users));
-      sessionStorage.setItem('currentUser', u);
+      users[u]=p;
+      localStorage.setItem('users',JSON.stringify(users));
+      sessionStorage.setItem('currentUser',u);
       showDashboard(u);
     }
   });
@@ -258,75 +272,65 @@
   });
 
   // PRODUCTS & CART
-  const productCards = document.querySelectorAll('.card'), products = [];
-  productCards.forEach((card, idx)=>{
-    const title = card.querySelector('h2').innerText;
-    const priceMatch = title.match(/\$(\d+)/); 
-    const price = priceMatch ? Number(priceMatch[1]) : 0;
-    const imgSrc = card.querySelector('img')?.src||''; 
-    const outOfStock = !!card.querySelector('.out-of-stock');
-    products.push({id: idx, title, price, imgSrc, outOfStock, card});
+  const productCards=document.querySelectorAll('.card');
+  const products=[];
+  productCards.forEach((card,idx)=>{
+    const title=card.querySelector('h2').innerText;
+    const priceMatch=title.match(/\$(\d+)/); 
+    const price=priceMatch?Number(priceMatch[1]):0;
+    const imgSrc=card.querySelector('img')?.src||''; 
+    const outOfStock=!!card.querySelector('.out-of-stock');
+    products.push({id:idx,title,price,imgSrc,outOfStock,card});
   });
 
-  let cart = [];
-  const cartIcon = document.getElementById('cart-icon');
-  const cartCount = document.getElementById('cart-count');
-  const cartPopup = document.getElementById('cart-popup');
-  const cartItemsContainer = document.getElementById('cart-items');
-  const checkoutBtn = document.getElementById('checkout-btn-popup');
+  let cart=[];
+  const cartIcon=document.getElementById('cart-icon');
+  const cartCount=document.getElementById('cart-count');
+  const cartPopup=document.getElementById('cart-popup');
+  const cartItemsContainer=document.getElementById('cart-items');
+  const checkoutBtn=document.getElementById('checkout-btn-popup');
 
-  function updateCartCount(){ cartCount.textContent = cart.reduce((a,i)=>a+i.quantity,0); }
+  function updateCartCount(){ cartCount.textContent=cart.reduce((a,i)=>a+i.quantity,0); }
   function renderCartItems(){
     cartItemsContainer.innerHTML='';
-    if(cart.length===0){
-      cartItemsContainer.innerHTML='<p>Your cart is empty.</p>';
+    if(cart.length===0){ 
+      cartItemsContainer.innerHTML='<p>Your cart is empty.</p>'; 
       checkoutBtn.disabled=true; 
       document.getElementById('cart-total').textContent='Total: $0'; 
-      return;
+      return; 
     }
     cart.forEach(item=>{
-      const div=document.createElement('div'); 
-      div.textContent=`${item.title} x${item.quantity}`;
-      const priceSpan=document.createElement('span'); 
-      priceSpan.textContent=`$${item.price*item.quantity}`;
+      const div=document.createElement('div'); div.textContent=`${item.title} x${item.quantity}`;
+      const priceSpan=document.createElement('span'); priceSpan.textContent=`$${item.price*item.quantity}`;
       div.appendChild(priceSpan); 
       cartItemsContainer.appendChild(div);
     });
-    const total = cart.reduce((a,i)=>a+i.price*i.quantity,0);
+    const total=cart.reduce((a,i)=>a+i.price*i.quantity,0);
     document.getElementById('cart-total').textContent=`Total: $${total}`;
     checkoutBtn.disabled=false;
   }
 
   function addToCart(product){ 
     if(product.outOfStock) return; 
-    const found = cart.find(i=>i.id===product.id); 
-    if(found) found.quantity++; 
-    else cart.push({...product, quantity:1}); 
+    const found=cart.find(i=>i.id===product.id); 
+    if(found)found.quantity++; 
+    else cart.push({...product,quantity:1}); 
     updateCartCount(); renderCartItems(); 
-  }
-
-  function enableCartButtons(enable){
-    products.forEach(p=>{
-      const btn=p.card.querySelector('.buy-button');
-      if(!p.outOfStock){
-        btn.classList.toggle('enabled', enable);
-        btn.disabled = !enable;
-      }
-    });
   }
 
   products.forEach(p=>{
     const btn=p.card.querySelector('.buy-button');
     if(!p.outOfStock){
-      btn.addEventListener('click', ()=>addToCart(p));
+      btn.addEventListener('click',()=>addToCart(p));
     }
   });
 
-  cartIcon.addEventListener('click', ()=>{ 
-    cartPopup.style.display = cartPopup.style.display==='flex' ? 'none':'flex'; 
+  cartIcon.addEventListener('click',()=>{ 
+    cartPopup.style.display=cartPopup.style.display==='flex'?'none':'flex'; 
   });
-  cartIcon.addEventListener('keypress', e=>{ if(e.key==='Enter'||e.key===' ')cartIcon.click(); });
-  checkoutBtn.addEventListener('click', ()=>{ 
+  cartIcon.addEventListener('keypress',e=>{ if(e.key==='Enter'||e.key===' ')cartIcon.click(); });
+
+  checkoutBtn.addEventListener('click',()=>{ 
     alert('Checkout not implemented. Please make a ticket on Discord to complete your purchase.'); 
   });
 </script>
