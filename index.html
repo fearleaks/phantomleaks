@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Northside WL Store</title>
+<title>Phantom Leaks Store</title>
 <style>
   * { box-sizing: border-box; }
   body, html {
     margin: 0; padding: 0; height: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: url('https://i.imgur.com/vB8R1ZO.jpeg') no-repeat center center fixed;
+    background: url('https://i.imgur.com/OMXpGbf.png') no-repeat center center fixed;
     background-size: cover;
     color: #f0f0f0;
     position: relative;
@@ -121,15 +121,6 @@
   #checkout-btn-popup:disabled { background:#555; color:#bbb; cursor:not-allowed; }
   #checkout-btn-popup:hover:not(:disabled) { background:#5500aa; }
 
-  /* Credits Section */
-  #credits {
-    text-align:center;
-    font-size:1.5rem;
-    color:#ff77ff;
-    font-weight:700;
-    margin:40px 0;
-  }
-
   footer { margin-top:60px; padding:20px; text-align:center; font-size:1rem; color:#8000ff; letter-spacing:1.2px; }
   footer a { color:#8000ff; text-decoration:underline; font-weight:700; }
 
@@ -142,7 +133,7 @@
 </head>
 <body>
 <div id="login-overlay">
-  <h2>Login to Northside WL Store 💻<br>
+  <h2>Login to Phantom Leaks Store 💻<br>
     <small>Make an account and get into shopping!</small>
   </h2>
   <input id="login-username" type="text" placeholder="Username" autocomplete="off" />
@@ -153,7 +144,7 @@
 
 <div id="app" aria-live="polite">
   <header>
-    <h1>🛒 Northside WL Store</h1>
+    <h1>🛒 Phantom Leaks Store</h1>
     <p>🔥 All items currently out of stock — stay tuned for restocks!</p>
     <input type="search" id="search-bar" placeholder="Search items..." aria-label="Search store items" />
   </header>
@@ -164,84 +155,35 @@
   </section>
 
   <section class="products" aria-label="Products for sale">
-    <!-- Coins -->
-    <div class="card" data-name="1000 Coins" data-desc="">
+    <div class="card" data-name="GFX" data-desc="">
       <span class="out-of-stock">Out of Stock</span>
-      <img src="https://i.imgur.com/vB8R1ZO.jpeg" alt="1000 Coins" />
-      <h2>💰 1000 Coins – $10</h2>
+      <img src="https://i.imgur.com/OUkYicn.png" alt="GFX" />
+      <h2>🎨 GFX – $5</h2>
       <p></p>
       <button class="buy-button" disabled>Add to Cart</button>
     </div>
-    <div class="card" data-name="2000 Coins" data-desc="">
+    <div class="card" data-name="Partnership" data-desc="">
       <span class="out-of-stock">Out of Stock</span>
-      <img src="https://i.imgur.com/vB8R1ZO.jpeg" alt="2000 Coins" />
-      <h2>💰 2000 Coins – $20</h2>
+      <img src="https://i.imgur.com/OUkYicn.png" alt="Partnership" />
+      <h2>🤝 Partnership – $5</h2>
       <p></p>
       <button class="buy-button" disabled>Add to Cart</button>
     </div>
-    <div class="card" data-name="3000 Coins" data-desc="">
+    <div class="card" data-name="VIP Perks" data-desc="">
       <span class="out-of-stock">Out of Stock</span>
-      <img src="https://i.imgur.com/vB8R1ZO.jpeg" alt="3000 Coins" />
-      <h2>💰 3000 Coins – $30</h2>
+      <img src="https://i.imgur.com/OUkYicn.png" alt="VIP Perks" />
+      <h2>⭐ VIP Perks – $10</h2>
       <p></p>
       <button class="buy-button" disabled>Add to Cart</button>
     </div>
-    <div class="card" data-name="4000 Coins" data-desc="">
+    <div class="card" data-name="Booster Perks" data-desc="">
       <span class="out-of-stock">Out of Stock</span>
-      <img src="https://i.imgur.com/vB8R1ZO.jpeg" alt="4000 Coins" />
-      <h2>💰 4000 Coins – $40</h2>
-      <p></p>
-      <button class="buy-button" disabled>Add to Cart</button>
-    </div>
-    <div class="card" data-name="5000 Coins" data-desc="">
-      <span class="out-of-stock">Out of Stock</span>
-      <img src="https://i.imgur.com/vB8R1ZO.jpeg" alt="5000 Coins" />
-      <h2>💰 5000 Coins – $50</h2>
-      <p></p>
-      <button class="buy-button" disabled>Add to Cart</button>
-    </div>
-
-    <!-- Unbans -->
-    <div class="card" data-name="Regular Unban" data-desc="">
-      <span class="out-of-stock">Out of Stock</span>
-      <img src="https://i.imgur.com/vB8R1ZO.jpeg" alt="Regular Unban" />
-      <h2>💻 Regular Unban – $10</h2>
-      <p></p>
-      <button class="buy-button" disabled>Add to Cart</button>
-    </div>
-    <div class="card" data-name="Tos Unban" data-desc="">
-      <span class="out-of-stock">Out of Stock</span>
-      <img src="https://i.imgur.com/vB8R1ZO.jpeg" alt="Tos Unban" />
-      <h2>💻 Tos Unban – $20</h2>
-      <p></p>
-      <button class="buy-button" disabled>Add to Cart</button>
-    </div>
-
-    <!-- Gang Package -->
-    <div class="card" data-name="Gang Package" data-desc="">
-      <span class="out-of-stock">Out of Stock</span>
-      <img src="https://i.imgur.com/vB8R1ZO.jpeg" alt="Gang Package" />
-      <h2>🔫 Gang Package – $30</h2>
-      <p></p>
-      <button class="buy-button" disabled>Add to Cart</button>
-    </div>
-
-    <!-- Custom Gun -->
-    <div class="card" data-name="Custom Gun" data-desc="">
-      <span class="out-of-stock">Out of Stock</span>
-      <img src="https://i.imgur.com/vB8R1ZO.jpeg" alt="Custom Gun" />
-      <h2>🔫 Custom Gun – $40</h2>
+      <img src="https://i.imgur.com/OUkYicn.png" alt="Booster Perks" />
+      <h2>🚀 Booster Perks – Boost our server 💜</h2>
       <p></p>
       <button class="buy-button" disabled>Add to Cart</button>
     </div>
   </section>
-
-  <!-- Credits Section -->
-  <div id="credits">
-    💜 Credits 💜<br>
-    Owner: Fear<br>
-    Owner: Jonny
-  </div>
 </div>
 
 <div id="cart-icon" aria-label="Shopping cart" role="button" tabindex="0" title="Open Cart">
@@ -255,12 +197,12 @@
 </div>
 
 <footer>
-  &copy; 2025 Northside WL — Join our Discord for support and updates:
-  <a href="https://discord.gg/northside-wl" target="_blank" rel="noopener noreferrer">https://discord.gg/northside-wl</a>
+  &copy; 2025 Phantom Leaks — Join our Discord for support and updates:
+  <a href="https://discord.gg/phantomleaks" target="_blank" rel="noopener noreferrer">https://discord.gg/phantomleaks</a>
 </footer>
 
 <script>
-  // ===== LOGIN SYSTEM =====
+  // LOGIN SYSTEM + CART SYSTEM (unchanged)
   let users = JSON.parse(localStorage.getItem('users') || '{}');
   const loginOverlay = document.getElementById('login-overlay');
   const usernameInput = document.getElementById('login-username');
@@ -314,13 +256,12 @@
     showLogin();
   });
 
-  // ===== PRODUCTS & CART =====
+  // PRODUCTS & CART
   const productCards=document.querySelectorAll('.card'),products=[];
   productCards.forEach((card,idx)=>{
     const title=card.querySelector('h2').innerText;
     const priceMatch=title.match(/\$(\d+)/); const price=priceMatch?Number(priceMatch[1]):0;
-    const imgSrc=card.querySelector('img')?.src||'';
-    const outOfStock=!!card.querySelector('.out-of-stock');
+    const imgSrc=card.querySelector('img')?.src||''; const outOfStock=!!card.querySelector('.out-of-stock');
     products.push({id:idx,title,price,imgSrc,outOfStock,card});
   });
 
@@ -372,19 +313,4 @@
 
   cartIcon.addEventListener('click',()=>{ cartPopup.style.display=cartPopup.style.display==='flex'?'none':'flex'; });
   cartIcon.addEventListener('keypress',e=>{ if(e.key==='Enter'||e.key===' ')cartIcon.click(); });
-  checkoutBtn.addEventListener('click',()=>{ alert('Checkout not implemented. Please make a ticket on Discord to complete your purchase.'); });
-
-  const searchBar=document.getElementById('search-bar');
-  searchBar.addEventListener('input',()=>{
-    const q=searchBar.value.toLowerCase().trim();
-    products.forEach(p=>{
-      const n=p.card.getAttribute('data-name').toLowerCase();
-      const d=p.card.getAttribute('data-desc').toLowerCase();
-      p.card.style.display=(n.includes(q)||d.includes(q))?'':'none';
-    });
-  });
-
-  if(!sessionStorage.getItem('currentUser')) showLogin();
-</script>
-</body>
-</html>
+  checkoutBtn.addEventListener('click',()=>{ alert('Checkout not implemented. Please make a ticket on Discord to complete your purchase.');
