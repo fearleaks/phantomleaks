@@ -7,6 +7,9 @@
 <style>
   * { box-sizing: border-box; }
   html,body { height:100%; margin:0; padding:0; }
+  /* disable scroll when body has .no-scroll */
+  html.no-scroll, body.no-scroll { height:100%; overflow: hidden; }
+
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #f0f0f0;
@@ -33,13 +36,17 @@
     background:#151515; color:#eee; border-radius:10px; border:none; box-shadow: inset 0 0 10px rgba(122,59,255,0.08);
   }
 
-  /* Login overlay */
+  /* Login overlay (blur + blocks interaction) */
   #login-overlay {
     position: fixed; inset:0; z-index:9999;
     display:flex; align-items:center; justify-content:center; padding:20px;
-    background: rgba(0,0,0,0.85); color:#fff;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color:#fff;
+    pointer-events: auto;
   }
-  .login-box { width:100%; max-width:420px; text-align:center; }
+  .login-box { width:100%; max-width:420px; text-align:center; background: rgba(18,18,18,0.95); padding:20px; border-radius:10px; box-shadow:0 12px 30px rgba(0,0,0,0.6); }
   .login-box h2 { margin:0 0 10px; font-size:1.6rem; }
   .login-box h2 small { display:block; font-weight:400; font-size:0.95rem; color:#b18bff; margin-top:6px; }
   .login-box input { width:100%; padding:10px; margin:8px 0; border-radius:8px; border:none; font-size:1rem; background:#121212; color:#fff; }
@@ -99,7 +106,8 @@
   }
 </style>
 </head>
-<body>
+<!-- disable scrolling until login by default -->
+<body class="no-scroll">
 
 <!-- LOGIN OVERLAY -->
 <div id="login-overlay" role="dialog" aria-modal="true" aria-labelledby="login-heading">
@@ -409,6 +417,90 @@ discord.gg/rivalrzleague
       </div>
     </article>
 
+    <!-- Galaxy Tings -->
+    <article class="partner-card" id="partner-galaxy">
+      <div class="partner-top">
+        <img src="https://i.imgur.com/neErCWS.png" alt="Galaxy Tings">
+        <div>
+          <h3 class="partner-title">🌌 Galaxy Tings</h3>
+          <div class="partner-desc">
+What Do We Have ❓
+
+> Best Fivem Leaks  
+> Fps Packs  
+> Boost Perks  
+Weekly Giveaways !  
+Personal Packages (cheap asf)
+
+discord.gg/gxlactic  
+Join Now  @everyone | @here
+          </div>
+          <div class="partner-cta">
+            <a class="btn-join" href="https://discord.gg/gxlactic" target="_blank" rel="noopener noreferrer">Join Galaxy Tings</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Hazyy's Leakz -->
+    <article class="partner-card" id="partner-hazyy">
+      <div class="partner-top">
+        <img src="https://i.imgur.com/SkrXRTS.png" alt="Hazyy's Leakz">
+        <div>
+          <h3 class="partner-title">🔥 Hazyy's Leakz</h3>
+          <div class="partner-desc">
+𝙃𝙖𝙯𝙮𝙮'𝙨 𝙇𝙚𝙖𝙠𝙯  
+𝙃𝙖𝙯𝙮𝙮'𝙨 𝙋𝙖𝙞𝙙 𝘽𝙪𝙣𝙙𝙡𝙚𝙨  
+𝘾𝙪𝙨𝙩𝙤𝙢 𝙂𝙧𝙖𝙥𝙝𝙞𝙘 𝙋𝙖𝙘𝙠𝙨  
+𝙐𝙣𝙡𝙚𝙖𝙠𝙚𝙙 𝙎𝙤𝙪𝙣𝙙 𝙋𝙖𝙘𝙠𝙨  
+𝘽𝙤𝙤𝙨𝙩𝙚𝙧 𝙋𝙚𝙧𝙠𝙨!  
+𝙇𝙤𝙩𝙨 𝙊𝙛 𝙁𝙧𝙚𝙚 𝙁𝙞𝙧𝙚 𝙇𝙚𝙖𝙠𝙯!
+
+https://discord.gg/hazyyleakz  
+@everyone @here
+          </div>
+          <div class="partner-cta">
+            <a class="btn-join" href="https://discord.gg/hazyyleakz" target="_blank" rel="noopener noreferrer">Join Hazyy's Leakz</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- MCX Exclusives -->
+    <article class="partner-card" id="partner-mcx">
+      <div class="partner-top">
+        <img src="https://i.imgur.com/IenYRP9.png" alt="MCX Exclusives">
+        <div>
+          <h3 class="partner-title">⚔️ MCX Exclusives</h3>
+          <div class="partner-desc">
+***what we have***  
+***custom sps***  
+***custom gps***  
+***custom bfx***  
+***custom ramps***  
+***pc optis***
+
+» VIP  
+⚔️ ***vip gps***  
+⚔️ ***vip sps***  
+⚔️ ***pc optis***  
+⚔️ ***vip bfx***
+
+» ***SOUNDPACKS***  
+⚔️ ***Your own custom sound pack***  
+*** We have unleaked soundpacks aswell for cheap***
+
+***come join 𝙈𝘾𝙓 𝙀𝙭𝙘𝙡𝙪𝙨𝙞𝙫𝙚𝙨 today***  
+discord.gg/mcx  
+@here
+          </div>
+          <div class="partner-cta">
+            <a class="btn-join" href="https://discord.gg/mcx" target="_blank" rel="noopener noreferrer">Join MCX Exclusives</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
   </section>
 
   <footer>
@@ -453,6 +545,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Simple login (client-side only)
   function showDashboard(username){
     loginOverlay.style.display = 'none';
+    document.body.classList.remove('no-scroll'); // re-enable scrolling
     dashboard.style.display = 'block';
     app.style.filter = 'none';
     userDisplay.textContent = username;
@@ -460,6 +553,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function showLogin(){
     dashboard.style.display = 'none';
     loginOverlay.style.display = 'flex';
+    document.body.classList.add('no-scroll'); // disable scrolling while login visible
     app.style.filter = 'blur(6px)';
     usernameInput.value = '';
     passwordInput.value = '';
@@ -481,7 +575,7 @@ document.addEventListener('DOMContentLoaded', () => {
     showLogin();
   });
 
-  // Build products array
+  // Build products -> array
   const products = [];
   productCards.forEach((card, idx) => {
     const title = card.querySelector('h2')?.innerText || `Product ${idx+1}`;
@@ -568,6 +662,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // initial render
   updateCartCount();
   renderCartItems();
+
+  // accessibility: press Enter to login on overlay inputs
+  usernameInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') loginBtn.click(); });
+  passwordInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') loginBtn.click(); });
 });
 </script>
 
