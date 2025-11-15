@@ -7,7 +7,6 @@
 <style>
   * { box-sizing: border-box; }
   html,body { height:100%; margin:0; padding:0; }
-  /* disable scroll when body has .no-scroll */
   html.no-scroll, body.no-scroll { height:100%; overflow: hidden; }
 
   body {
@@ -27,16 +26,14 @@
 
   #app { position: relative; z-index:1; max-width:1100px; margin:0 auto; padding:28px 20px 80px; }
   header { text-align:center; margin-bottom:12px; }
-  header h1 { font-size:2.6rem; margin:6px 0; text-shadow:0 0 10px #7a3bff; color:#fff; }
-  header p { color:#dcd6ff; margin-top:0; margin-bottom:10px; }
+  header h1 { font-size:2.6rem; margin:6px 0; text-shadow:0 0 10px #ff0000; color:#fff; }
+  header p { color:#ffdddd; margin-top:0; margin-bottom:10px; }
 
-  /* Search */
   #search-bar {
     display:block; width:100%; max-width:640px; margin:0 auto 20px; padding:10px 14px;
-    background:#151515; color:#eee; border-radius:10px; border:none; box-shadow: inset 0 0 10px rgba(122,59,255,0.08);
+    background:#151515; color:#eee; border-radius:10px; border:none; box-shadow: inset 0 0 10px rgba(255,0,0,0.08);
   }
 
-  /* Login overlay (blur + blocks interaction) */
   #login-overlay {
     position: fixed; inset:0; z-index:9999;
     display:flex; align-items:center; justify-content:center; padding:20px;
@@ -48,30 +45,27 @@
   }
   .login-box { width:100%; max-width:420px; text-align:center; background: rgba(18,18,18,0.95); padding:20px; border-radius:10px; box-shadow:0 12px 30px rgba(0,0,0,0.6); }
   .login-box h2 { margin:0 0 10px; font-size:1.6rem; }
-  .login-box h2 small { display:block; font-weight:400; font-size:0.95rem; color:#b18bff; margin-top:6px; }
+  .login-box h2 small { display:block; font-weight:400; font-size:0.95rem; color:#ffb3b3; margin-top:6px; }
   .login-box input { width:100%; padding:10px; margin:8px 0; border-radius:8px; border:none; font-size:1rem; background:#121212; color:#fff; }
-  .login-box button { width:100%; padding:12px; border-radius:8px; border:none; background:#7a3bff; color:#fff; font-weight:700; cursor:pointer; }
+  .login-box button { width:100%; padding:12px; border-radius:8px; border:none; background:#ff0000; color:#fff; font-weight:700; cursor:pointer; }
   #login-error { margin-top:8px; min-height:18px; color:#ff7b7b; }
 
-  /* Dashboard */
   #dashboard-section { display:none; max-width:920px; margin: 12px auto 28px; background: rgba(20,20,20,0.92); padding:18px 20px; border-radius:12px; box-shadow: 0 8px 28px rgba(0,0,0,0.6); }
-  #dashboard-section h2 { color:#cdb8ff; margin:0 0 8px; text-align:center; }
+  #dashboard-section h2 { color:#ffb3b3; margin:0 0 8px; text-align:center; }
   #logout-btn { display:block; margin:10px auto 0; padding:10px 18px; border-radius:8px; background:#555; color:#fff; border:none; cursor:pointer; font-weight:700; }
 
-  /* Products */
   .products { display:grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap:22px; margin-bottom:36px; }
   .card {
     background: rgba(26,26,26,0.94); padding:18px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.6);
     display:flex; flex-direction:column; align-items:stretch;
   }
   .card img { max-height:140px; object-fit:contain; border-radius:8px; background:#0c0c0c; padding:8px; margin-bottom:10px; }
-  .card h2 { margin:6px 0 10px; color:#d9cfff; font-size:1.15rem; display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  .card h2 { margin:6px 0 10px; color:#ffcccc; font-size:1.15rem; display:flex; align-items:center; justify-content:space-between; gap:8px; }
   .card p { color:#d6d6d6; flex-grow:1; margin-bottom:12px; font-size:0.96rem; }
-  .buy-button { background:#7a3bff; color:#fff; border:none; padding:12px; border-radius:8px; font-weight:800; cursor:pointer; }
+  .buy-button { background:#ff0000; color:#fff; border:none; padding:12px; border-radius:8px; font-weight:800; cursor:pointer; }
 
-  /* Partners */
   #partners { margin-top:10px; }
-  #partners h2 { text-align:center; color:#d9cfff; margin-bottom:18px; }
+  #partners h2 { text-align:center; color:#ffcccc; margin-bottom:18px; }
   .partner-card {
     background: rgba(28,28,28,0.96); margin-bottom:26px; padding:18px; border-radius:12px;
     box-shadow:0 8px 24px rgba(0,0,0,0.6);
@@ -81,24 +75,23 @@
   .partner-title { font-size:1.1rem; color:#fff; margin:0; }
   .partner-desc { color:#ddd; margin-top:12px; line-height:1.45; white-space:pre-wrap; font-family:inherit; }
   .partner-cta { margin-top:14px; display:flex; gap:10px; flex-wrap:wrap; }
-  .btn-join { padding:10px 16px; background:#7a3bff; color:#fff; border-radius:8px; text-decoration:none; font-weight:800; }
-  .btn-join.secondary { background:transparent; border:2px solid rgba(122,59,255,0.16); color:#dcd6ff; font-weight:700; padding:8px 12px; border-radius:8px; }
+  .btn-join { padding:10px 16px; background:#ff0000; color:#fff; border-radius:8px; text-decoration:none; font-weight:800; }
+  .btn-join.secondary { background:transparent; border:2px solid rgba(255,0,0,0.16); color:#ffdddd; font-weight:700; padding:8px 12px; border-radius:8px; }
 
-  /* Cart */
-  #cart-icon { position:fixed; top:18px; right:18px; z-index:300; background:#7a3bffcc; color:#fff; padding:10px 14px; border-radius:50%; cursor:pointer; box-shadow:0 0 12px rgba(122,59,255,0.28); display:flex; align-items:center; justify-content:center; font-weight:900; }
-  #cart-count { position:absolute; top:-8px; right:-8px; background:#a064ff; color:#fff; padding:4px 8px; border-radius:50%; font-weight:900; font-size:0.95rem; }
+  #cart-icon { position:fixed; top:18px; right:18px; z-index:300; background:#ff0000cc; color:#fff; padding:10px 14px; border-radius:50%; cursor:pointer; box-shadow:0 0 12px rgba(255,0,0,0.28); display:flex; align-items:center; justify-content:center; font-weight:900; }
+  #cart-count { position:absolute; top:-8px; right:-8px; background:#ff4d4d; color:#fff; padding:4px 8px; border-radius:50%; font-weight:900; font-size:0.95rem; }
   #cart-popup {
     position: fixed; top:64px; right:18px; width:360px; max-height:520px; overflow:auto; z-index:350;
     background: rgba(18,18,18,0.98); padding:16px; border-radius:12px; box-shadow:0 12px 40px rgba(0,0,0,0.6); display:none; flex-direction:column;
   }
-  #cart-popup h3 { margin:6px 0 12px; color:#dfcfff; text-align:center; }
+  #cart-popup h3 { margin:6px 0 12px; color:#ffcdcd; text-align:center; }
   #cart-items { color:#e6e6e6; font-size:0.98rem; }
   #cart-items div { display:flex; justify-content:space-between; margin-bottom:10px; }
-  #cart-total { text-align:right; margin-top:8px; font-weight:800; color:#cfa6ff; }
-  #checkout-btn-popup { margin-top:12px; background:#7a3bff; border:none; color:#fff; padding:10px; border-radius:10px; font-weight:800; cursor:pointer; width:100%; }
+  #cart-total { text-align:right; margin-top:8px; font-weight:800; color:#ffaaaa; }
+  #checkout-btn-popup { margin-top:12px; background:#ff0000; border:none; color:#fff; padding:10px; border-radius:10px; font-weight:800; cursor:pointer; width:100%; }
 
-  footer { margin-top:40px; text-align:center; color:#cdb8ff; padding-bottom:40px; }
-  footer a { color:#e6dbff; text-decoration:underline; }
+  footer { margin-top:40px; text-align:center; color:#ffb3b3; padding-bottom:40px; }
+  footer a { color:#ffdddd; text-decoration:underline; }
 
   @media (max-width:700px) {
     .partner-top { flex-direction:column; align-items:flex-start; }
@@ -106,7 +99,6 @@
   }
 </style>
 </head>
-<!-- disable scrolling until login by default -->
 <body class="no-scroll">
 
 <!-- LOGIN OVERLAY -->
@@ -176,4 +168,100 @@
   <section id="partners" aria-label="Partners">
     <h2>🎉 Phantom Leaks reached 2.4k members in 3 months! </h2>
 
-   
+    <!-- add your partner cards here... -->
+
+  </section>
+
+  <!-- CART ICON -->
+  <div id="cart-icon">🛒<div id="cart-count">0</div></div>
+  <div id="cart-popup">
+    <h3>Your Cart</h3>
+    <div id="cart-items"></div>
+    <div id="cart-total"></div>
+    <button id="checkout-btn-popup">Checkout</button>
+  </div>
+
+  <footer>
+    Made by Phantom Leaks • Join our
+    <a href="https://discord.gg/phantomleaks" target="_blank">Discord</a>
+  </footer>
+</div>
+
+<script>
+  const overlay = document.getElementById('login-overlay');
+  const loginBtn = document.getElementById('login-btn');
+  const loginError = document.getElementById('login-error');
+  const userDisplay = document.getElementById('user-display');
+  const dashboard = document.getElementById('dashboard-section');
+  const logoutBtn = document.getElementById('logout-btn');
+
+  // Enable scroll + hide login
+  function loginUser(u) {
+    overlay.style.display = 'none';
+    document.body.classList.remove('no-scroll');
+    userDisplay.textContent = u;
+    dashboard.style.display = 'block';
+  }
+
+  loginBtn.addEventListener('click', () => {
+    const u = document.getElementById('login-username').value.trim();
+    const p = document.getElementById('login-password').value.trim();
+    if(!u || !p) {
+      loginError.textContent = "Please enter both username and password.";
+      return;
+    }
+    loginUser(u);
+  });
+
+  logoutBtn.addEventListener('click', () => {
+    location.reload();
+  });
+
+  // CART LOGIC
+  const cartIcon = document.getElementById('cart-icon');
+  const cartPopup = document.getElementById('cart-popup');
+  const cartCount = document.getElementById('cart-count');
+  const cartItemsDiv = document.getElementById('cart-items');
+  const cartTotalDiv = document.getElementById('cart-total');
+
+  let cart = [];
+
+  function renderCart() {
+    cartItemsDiv.innerHTML = '';
+    if(cart.length === 0) {
+      cartItemsDiv.textContent = "Your cart is empty.";
+      cartTotalDiv.textContent = "";
+      return;
+    }
+    let total = 0;
+    cart.forEach((item, index) => {
+      total += item.price;
+      const row = document.createElement('div');
+      row.innerHTML = `
+        <span>${item.name}</span>
+        <strong>$${item.price}</strong>
+      `;
+      cartItemsDiv.appendChild(row);
+    });
+    cartTotalDiv.textContent = "Total: $" + total;
+  }
+
+  document.querySelectorAll('.buy-button').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const card = e.target.closest('.card');
+      const name = card.getAttribute('data-name');
+      const price = parseInt(card.querySelector('span').textContent.replace(/\D/g,'')) || 0;
+      cart.push({ name, price });
+      cartCount.textContent = cart.length;
+      renderCart();
+    });
+  });
+
+  cartIcon.addEventListener('click', () => {
+    cartPopup.style.display = cartPopup.style.display === 'flex' ? 'none' : 'flex';
+  });
+
+</script>
+
+</body>
+</html>
